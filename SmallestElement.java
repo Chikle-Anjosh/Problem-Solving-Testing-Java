@@ -1,6 +1,6 @@
 
 public class SmallestElement {
-    \\anjoshh
+    //anjoshh
     public static void main(String[] args) {
         int arr[] = {10,21,3,133,122,31,1,5};
         int min=arr[0];
