@@ -1,0 +1,29 @@
+class Solution {
+    public int largestAltitude(int[] gain) {
+        int n = gain.length;
+        int[] pref = new int[n];
+        pref[0]=gain[0];
+        for(int i=1;i<n;i++){
+            pref[i]=pref[i-1]+gain[i];
+        }
+        int max=0;
+        int current =0;
+        for(int i=0;i<n;i++){
+            current = current+gain[i];
+            if(current>max){
+                max = current;
+            }
+        }
+        return max;
+    }
+}
+
+
+Accepted
+Input
+gain =
+[-5,1,5,0,-7]
+Output
+1
+Expected
+1
