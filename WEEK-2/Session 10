@@ -1,0 +1,43 @@
+import java.util.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();
+        int M = sc.nextInt();
+        int[] arr = new int[N];
+        for (int i = 0; i < N; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        Deque<Integer> window = new ArrayDeque<>();
+        Map<Integer, Integer> freq = new HashMap<>();
+        int maxUnique = 0;
+
+        for (int i = 0; i < N; i++) {
+            window.addLast(arr[i]);
+            freq.put(arr[i], freq.getOrDefault(arr[i], 0) + 1);
+            if (window.size() > M) {
+                int removed = window.removeFirst();
+                freq.put(removed, freq.get(removed) - 1);
+                if (freq.get(removed) == 0) {
+                    freq.remove(removed);
+                }
+            }
+            if (window.size() == M) {
+                maxUnique = Math.max(maxUnique, freq.size());
+            }
+        }
+
+        System.out.println(maxUnique);
+    }
+}
+
+
+mpiler Message
+Success
+Input (stdin)
+6 3
+5 3 5 2 3 2
+Expected Output
+3
