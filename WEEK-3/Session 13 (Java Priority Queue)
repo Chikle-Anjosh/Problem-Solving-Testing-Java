@@ -1,0 +1,67 @@
+import java.util.*;
+
+class Student {
+    private int id;
+    private String name;
+    private double cgpa;
+
+    Student(int id, String name, double cgpa) {
+        this.id = id;
+        this.name = name;
+        this.cgpa = cgpa;
+    }
+
+    int getID() { return id; }
+    String getName() { return name; }
+    double getCGPA() { return cgpa; }
+}
+
+class Priorities {
+    public List<Student> getStudents(List<String> events) {
+
+        PriorityQueue<Student> pq = new PriorityQueue<>(
+            (a, b) -> a.getCGPA() != b.getCGPA()
+                ? Double.compare(b.getCGPA(), a.getCGPA())
+                : !a.getName().equals(b.getName())
+                    ? a.getName().compareTo(b.getName())
+                    : Integer.compare(a.getID(), b.getID())
+        );
+
+        for (String e : events) {
+            String[] p = e.split(" ");
+
+            if (p[0].equals("ENTER"))
+                pq.add(new Student(
+                    Integer.parseInt(p[3]),
+                    p[1],
+                    Double.parseDouble(p[2])
+                ));
+            else if (!pq.isEmpty())
+                pq.poll();
+        }
+
+        return new ArrayList<>(pq);
+    }
+}
+
+
+
+Sample input:
+12
+ENTER John 3.75 50
+ENTER Mark 3.8 24
+ENTER Shafaet 3.7 35
+SERVED
+SERVED
+ENTER Samiha 3.85 36
+SERVED
+ENTER Ashley 3.9 42
+ENTER Maria 3.6 46
+ENTER Anik 3.95 49
+ENTER Dan 3.95 50
+SERVED
+Sample output:
+Dan
+Ashley
+Shafaet
+Maria
